@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void)
+{
+    //following is added to STACK memory, compiler automatically allocates and frees 
+    // int list[3];
+
+    // list[0] = 1;
+    // list[1] = 2;
+    // list[2] = 3;
+
+    // for (int i = 0; i < 3; i++)
+    // {
+    //     printf("%i\n", list[i]);
+    // }
+
+    //following example done dynmically using malloc to programmatically allocate and free HEAP memory
+    int *list = malloc(3 * sizeof(int));
+    if (list == NULL)
+    {
+        return 1;
+    }
+
+    list[0] = 1;
+    list[1] = 2;
+    list[2] = 3;
+
+    //or as pointer arythmetic
+    // *list = 1;
+    // *(list + 1) = 2;
+    // *(list +2) = 3;
+
+    //Time passes and now we need to dynamicaly allocate memory.
+    // int *tmp = malloc(4 * sizeof(int));
+    // if (tmp == NULL)
+    // {
+    //     free(list);
+    //     return 1;
+    // }
+
+    // for (int i = 0; i < 3; i++)
+    // {
+    //     tmp[i] = list[i];
+    // }
+    
+    //for prev code could also use realloc as follows
+    int *tmp = realloc(list, 4 * sizeof(int));
+    if (tmp == NULL)
+    {
+        free(list);
+        return 1;
+    }
+
+    tmp[3] = 4;
+
+    free(list);
+    list = tmp;
+
+    for (int i = 0; i < 4; i++)
+    {
+        printf("%i\n", list[i]);
+    }
+    free(list);
+    return 0;
+}
